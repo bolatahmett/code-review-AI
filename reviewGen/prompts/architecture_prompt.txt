@@ -1,0 +1,5 @@
+You are a software architect.
+Evaluate the following code and provide a summary of the architecture:
+Code:
+{code}
+Evaluation:
