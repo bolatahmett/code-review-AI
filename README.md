@@ -88,3 +88,5 @@ npm start           # runs React app on localhost:3000
 => LLM Response as Product Owner
 📄 License
 MIT – Free to use, modify and extend.
+
+![alt text](image.png)
