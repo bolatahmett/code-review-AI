@@ -33,7 +33,7 @@ def review_code():
         "reviews": {
             "architecture": result["architecture_review"],
             "security": result["security_review"],
-            "product": result["product_owner_review"]
+            "productOwner": result["product_owner_review"]
     }
 })
 

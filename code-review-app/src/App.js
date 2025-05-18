@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import "./App.css";
-
 function App() {
   const [folderPath, setFolderPath] = useState("");
-  const [reviews, setReviews] = useState(null);
+  const [diff, setDiff] = useState("");
+  const [reviews, setReviews] = useState({
+    architecture: "",
+    security: "",
+    productOwner: ""
+  });
+  const [userFeedback, setUserFeedback] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,50 +20,83 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ folderPath }),
       });
-
       if (!response.ok) throw new Error("Failed to get review");
-
       const data = await response.json();
-      setReviews({
-        architecture: data.architecture_review,
-        security: data.security_review,
-        product: data.product_owner_review,
-      });
+      setDiff(data.diff);
+      setReviews(data.reviews);
       setStatus("Review complete.");
+      setLoading(false);
     } catch (error) {
       setStatus("Error: " + error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="App">
-      <h1>Code Review Tool</h1>
-      <input
-        type="text"
-        placeholder="Enter folder path"
-        value={folderPath}
-        onChange={(e) => setFolderPath(e.target.value)}
-      />
-      <button onClick={handleRunReview}>Run Review</button>
+    <div style={{ padding: 20, fontFamily: "Arial" }}>
+      <h1>Code Review App</h1>
 
-      {loading && <div className="spinner" />}
+      <div>
+        <label>
+          Folder Path:{" "}
+          <input
+            type="text"
+            value={folderPath}
+            onChange={(e) => setFolderPath(e.target.value)}
+            style={{ width: 300 }}
+            placeholder="C:/path/to/your/project"
+          />
+        </label>
+        <button onClick={handleRunReview} style={{ marginLeft: 10 }} disabled={!folderPath || loading}>
+          Run Review
+        </button>
+      </div>
 
-      <p>{status}</p>
+      <div style={{ marginTop: 20 }}>
+        <h3>Git Diff</h3>
+        <pre style={{ backgroundColor: "#f0f0f0", padding: 10 }}>
+          {diff || "Diff output will appear here..."}
+        </pre>
+      </div>
 
-      {reviews && (
-        <div className="reviews">
-          <h2>Architecture Review</h2>
-          <pre>{reviews.architecture}</pre>
-
-          <h2>Security Review</h2>
-          <pre>{reviews.security}</pre>
-
-          <h2>Product Owner Review</h2>
-          <pre>{reviews.product}</pre>
+      <div style={{ marginTop: 20 }}>
+        <h3>Review Comments</h3>
+        <div>
+          <strong>Architecture:</strong>
+          <p>{reviews.architecture || "-"}</p>
         </div>
-      )}
+        <div>
+          <strong>Security:</strong>
+          <p>{reviews.security || "-"}</p>
+        </div>
+        <div>
+          <strong>Product Owner:</strong>
+          <p>{reviews.productOwner || "-"}</p>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 20 }}>
+        <h3>User Feedback</h3>
+        <textarea
+          rows={4}
+          cols={50}
+          value={userFeedback}
+          onChange={(e) => setUserFeedback(e.target.value)}
+          placeholder="Your comments..."
+        />
+      </div>
+
+      <div style={{ marginTop: 10 }}>
+        <button
+          onClick={() => alert("Feedback submitted!")}
+          disabled={!userFeedback.trim()}
+        >
+          Submit Feedback
+        </button>
+      </div>
+
+      <div style={{ marginTop: 10, fontStyle: "italic", color: "gray" }}>
+        {status}
+      </div>
     </div>
   );
 }
