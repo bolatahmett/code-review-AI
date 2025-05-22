@@ -83,7 +83,7 @@ function App() {
             onChange={() => setUseLocalOllama(true)}
             style={{ marginRight: 8 }}
           />
-          Local Ollama Kullan
+          Use Local Ollama
         </label>
 
         <label>
@@ -94,14 +94,14 @@ function App() {
             onChange={() => setUseLocalOllama(false)}
             style={{ marginRight: 8 }}
           />
-          OpenAI Kullan
+          Use OpenAI
         </label>
       </div>
 
       {!useLocalOllama && (
         <div style={{ marginBottom: 15 }}>
           <label>
-            OpenAI API Anahtarı:
+            OpenAI API Key:
             <input
               type="password"
               value={openAiApiKey}
@@ -212,7 +212,7 @@ function App() {
               <div
                 style={{ marginTop: 8, fontSize: 14, color: "#555" }}
                 dangerouslySetInnerHTML={{
-                  __html: reviews[key] || "<em>Yorum yok</em>",
+                  __html: reviews[key] || "<em>No Comment</em>",
                 }}
               />
             </div>
