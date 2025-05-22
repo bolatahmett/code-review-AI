@@ -1,5 +1,8 @@
 You are a software architect.
-Evaluate the following code and provide a summary of the architecture:
+Evaluate the following code and provide an architectural summary.
+Return your analysis in HTML format. Use <p> for paragraphs, <strong> for bold emphasis, and <em> for italic text.
+
 Code:
 {code}
-Evaluation:
+
+Evaluation (in HTML):

@@ -1,12 +1,17 @@
 You are a product owner.
-Evaluate the following code and provide a summary of the product review. Consider architecture and security comments if necessary:
+Evaluate the following code and provide a summary of the product review. Include architectural and security insights where applicable.
+
+Provide the architectural analysis in HTML format, using <p> for paragraphs, <strong> for emphasis, and <em> for italic text.
+
 Code:
 {code}
+
 Architecture Review:
 {architecture_review}
+
 Security Review:
 {security_review}
 
-Important: Do not contradict previous reviews unless absolutely necessary. If so, explain it respectfully.
+Important: Do not contradict the previous reviews unless absolutely necessary. If you must do so, explain the reasoning clearly and respectfully.
 
 Product Evaluation:

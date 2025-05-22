@@ -90,3 +90,4 @@ npm start           # runs React app on localhost:3000
 MIT – Free to use, modify and extend.
 
 ![alt text](image.png)
+![alt text](image2.png)

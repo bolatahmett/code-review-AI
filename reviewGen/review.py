@@ -14,17 +14,23 @@ def index():
 def review_code():
     data = request.json
     folder_path = data.get("folderPath")
+    provider = data.get("provider")
 
     try:
         diff = get_git_diff(folder_path)
         code = extract_added_code(diff)
-
         if not code.strip():
             print("No staged code found.")
             return
-
-        chain = get_review_chain()
-        result = chain({"code": code})
+        
+        if provider == "ollama":
+            chain = get_review_chain()
+            result = chain({"code": code})
+        elif provider == "openai":
+            # Assuming you have a similar function for OpenAI
+            chain = get_review_chain(provider, api_key=data.get("apiKey"))
+            result = chain({"code": code})
+        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -33,7 +39,8 @@ def review_code():
         "reviews": {
             "architecture": result["architecture_review"],
             "security": result["security_review"],
-            "productOwner": result["product_owner_review"]
+            "productOwner": result["product_owner_review"],
+            "devops": result["devops_review"]
     }
 })
 
